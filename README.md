@@ -60,15 +60,24 @@ cd Server-Side
 cd FlightBoard
 dotnet restore
 dotnet ef database update --startup-project FlightBoard.Api/FlightBoard.Api.csproj --project FlightBoard.Infrastructure/FlightBoard.Infrastructure.csproj
-cd FlightBoard.Api
-dotnet run
 ```
+
+1. Open the solution file `FlightBoard.sln` located in the `Server-Side` directory.
+2. Set the startup project to `FlightBoard.Api`.
+3. Run the application by pressing `F5` or clicking `Start` in Visual Studio.
 
 > By default, the server runs on `https://localhost:7031`
 
 ---
 
 ### 3. Frontend Setup (`Client-Side\flightboard-client`)
+
+#### Environment Configuration
+
+Before running the frontend, create a `.env` file inside the `Client-Side\flightboard-client` folder with the following content:
+
+```env
+REACT_APP_SERVER_API_URL=https://localhost:7031
 
 ```bash
 cd Client-Side
@@ -77,13 +86,13 @@ npm install
 npm start
 ```
 
-> By default, the frontend runs on `http://localhost:5173`
+> By default, the frontend runs on `http://localhost:3000`
 
 ---
 
 ### 4. Usage
 
-- Open your browser at `http://localhost:5173`
+- Open your browser at `http://localhost:3000`
 - Make changes (add/delete flights) via the UI
 - Open the app in two browser tabs – you'll see real-time updates between them
 - Watch the backend logs for Serilog output when creating or deleting flights
