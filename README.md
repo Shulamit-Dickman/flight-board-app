@@ -97,8 +97,6 @@ Docker support is **planned** and will include:
 - `Dockerfile` for backend and frontend
 - `docker-compose.yml` for full local setup
 
-Stay tuned for updates.
-
 ---
 
 
