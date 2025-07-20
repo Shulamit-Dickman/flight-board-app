@@ -108,7 +108,8 @@ Docker support is **planned** and will include:
 - `docker-compose.yml` for full local setup
 
 ---
-
+![Screenshot](Client-Side/flightboard-client/public/assets/screenshots/FlightBoard.png)
+![Screenshot](Client-Side/flightboard-client/public/assets/screenshots/AddFlight.png)
 
 ## Author
 
