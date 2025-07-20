@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Flight } from '../../types/Flight';
 import axios from 'axios';
 import {FilterState} from '../filters/filtersSlice'
+import { API_BASE_URL } from '../../config'
 
 const buildQueryParams = (filters: FilterState): Record<string, string> => {
     const p: Record<string, string> = {};
@@ -11,12 +12,12 @@ const buildQueryParams = (filters: FilterState): Record<string, string> => {
   };
 
 const fetchFlights = async():Promise<Flight[]>=>{
-    const res = await axios.get('/api/flights');
+    const res = await axios.get(API_BASE_URL);
     return res.data;
 }
 
 const fetchFlightsWithFilters = async(filters:FilterState):Promise<Flight[]>=>{
-    const res = await axios.get('api/flights/search',{params:buildQueryParams(filters)});
+    const res = await axios.get(`${API_BASE_URL}/search`,{params:buildQueryParams(filters)});
     return res.data;
 }
 

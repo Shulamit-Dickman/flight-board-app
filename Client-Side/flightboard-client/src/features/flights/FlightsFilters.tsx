@@ -4,8 +4,11 @@ import {useAppDispatch,useAppSelector} from '../../app/hooks'
 import { clearFilters, setDestination, setStatus } from "../filters/filtersSlice";
 import { useState } from "react";
 import { useFlightsQuery } from "./useFlightsQuery";
+import { Box, Button, TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 
-const FlightsFilters : React.FC= ()=>{
+export default function FlightsFilters (){
     const dispatch = useAppDispatch();
     const filters = useAppSelector((state)=>state.filters)
     const [localDestination,setLocalDestination]=useState(filters.destination)
@@ -17,44 +20,58 @@ const FlightsFilters : React.FC= ()=>{
         dispatch(clearFilters());
         setLocalDestination('');
     }
-
     return (
-        <div className="w-full bg-gray-100 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-end gap-4">
- <div className="flex flex-col w-full md:w-1/3">
-        <label className="text-sm font-medium text-gray-700 mb-1">Status</label>
-        <DropDown
-          selected={filters.status}
-          options={flightStatusList}
-          onChange={(value) => dispatch(setStatus(value as FlightStatus))}
-        />
-        </div>
-
-        <div className="flex flex-col w-full md:w-1/3">
-        <label className="text-sm font-medium text-gray-700 mb-1">Destination</label>
-        <input
-          type="text"
-          className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-          placeholder="Enter destination"
-          value={localDestination}
-          onChange={(e) => setLocalDestination(e.target.value)}
-        />
-      </div>
-      <div className="flex gap-2 mt-2 md:mt-0 w-full md:w-1/3">
-        <button
-          onClick={handleSearch}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm rounded"
-        >
-          Search
-        </button>
-        <button
-          onClick={handleClear}
-          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 text-sm rounded"
-        >
-          Clear
-        </button>
-      </div>
-    </div>
-        )
-}
-
-export default FlightsFilters;
+      <Box
+        display="flex"
+        flexDirection={{ xs: "column", md: "row" }}
+        alignItems={{ md: "flex-end" }}
+        gap={2}
+        p={2}
+        borderRadius={2}
+        boxShadow={1}
+        bgcolor="grey.100"
+      >
+        <Box flex={1}>
+          <DropDown
+            selected={filters.status}
+            options={flightStatusList}
+            onChange={(value) => dispatch(setStatus(value as FlightStatus))}
+          />
+        </Box>
+  
+        <Box flex={1}>
+          <TextField
+            id="outlined-search"
+            label="Destination"
+            type="search"
+            variant="outlined"
+            size="small"
+            fullWidth
+            value={localDestination}
+            onChange={(e) => setLocalDestination(e.target.value)}            
+          />
+        </Box>
+  
+        <Box display="flex" gap={1} flex={1}>
+          <Button
+            onClick={handleSearch}
+            variant="contained"
+            fullWidth
+            startIcon={<SearchIcon />}
+            sx={{ height: 40 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={handleClear}
+            variant="outlined"
+            fullWidth
+            startIcon={<SearchOffIcon />}
+            sx={{ height: 40 }}
+          >
+            Clear
+          </Button>
+        </Box>
+      </Box>
+    );
+  }

@@ -5,7 +5,7 @@ import { setupSignalREvents } from '../../signalr/signalrEvents';
 import { connected, connecting, connectionError } from '../../signalr/signalrSlice';
 import { useQueryClient } from '@tanstack/react-query';
 
-const FlightHubConnector: React.FC = () => {
+export default function FlightHubConnector(){
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
@@ -29,4 +29,3 @@ const FlightHubConnector: React.FC = () => {
   return null; 
 };
 
-export default FlightHubConnector;

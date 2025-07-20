@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FlightDto } from "../../types/Flight";
 
 const initialState:FlightDto = {
@@ -24,10 +24,14 @@ const flightFormSlice = createSlice({
         setDepartureTime:(state,action)=>{
             state.departureTime = action.payload;
         },
+        setField: (state, action: PayloadAction<{ field: keyof FlightDto; value: string }>) => {
+            const { field, value } = action.payload;
+            (state as any)[field] = value; 
+          },
         clearForm:()=>initialState
     
     }
 })
 
-export const {setFlightNumber,setDestination,setGate,setDepartureTime,clearForm} = flightFormSlice.actions;
+export const {setFlightNumber,setDestination,setGate,setDepartureTime,clearForm,setField} = flightFormSlice.actions;
 export default flightFormSlice.reducer;

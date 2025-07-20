@@ -22,7 +22,6 @@ export const setupSignalREvents = (
     console.log('SignalR reconnecting...');
   });
 
-  // דוגמה: מאזין לשידור טיסה חדשה
   connection.on('FlightCreated', (flight) => {
     console.log('New flight received:', flight);
     queryClient.invalidateQueries({ queryKey: ['flights'] });

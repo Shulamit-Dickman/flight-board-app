@@ -1,6 +1,4 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { type } from 'os'
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react'
 
 type DropdownProps = {
@@ -9,42 +7,29 @@ type DropdownProps = {
   onChange: (value: string) => void;
 };
 
-const DropDown: React.FC<DropdownProps> = ({options,selected,onChange})=>{
-const [isOpen,setIsOpen] = useState(false);
-const [selectedValue,setSelectedValue] = useState('Status');
+export default function DropDown({options,selected,onChange}:DropdownProps){
 
-function selectOption(selectedValue:string){
-  onChange(selectedValue);
-  setIsOpen(false);
-}
-  return (
-    <div className="relative inline-block text-left">
-      <div>
-        <button className="h-10 inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
-          type="button"
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
-          {selected}
-        </button>
-      </div>
-
-      {isOpen && (
-        <div className="absolute w-40 rounded-md bg-white shadow-lg z-10">
-          <ul className="text-sm text-gray-700">
-            {
-              options.map((value,key)=>(
-                <li 
-                className="h-10 px-4 py-2 hover:bg-gray-100 cursor-pointer" 
-                onClick={(e)=>{selectOption(value)}}
-                key={value}
-                >{value}</li>
-              ))
-            }
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+const handleChange =  (event:SelectChangeEvent) => {
+  onChange(event.target.value);
 }
 
-export default DropDown;
+return (
+  <FormControl fullWidth  sx={{ m: 0}} size="small">
+    <InputLabel id="demo-select-small-label">Status</InputLabel>
+    <Select
+      labelId="demo-select-small-label"
+      id="demo-select-small"
+      value={selected}
+      label="Status"
+      onChange={handleChange}
+    >
+      {
+        options.map((value)=>(
+          <MenuItem value={value} key={value}>{ value === "" ? "None" : value}</MenuItem>
+        ))        
+      }
+    </Select>
+  </FormControl>
+); 
+}
+
