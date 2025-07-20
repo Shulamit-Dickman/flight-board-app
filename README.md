@@ -60,7 +60,8 @@ cd Server-Side
 cd FlightBoard
 dotnet restore
 dotnet ef database update --startup-project FlightBoard.Api/FlightBoard.Api.csproj --project FlightBoard.Infrastructure/FlightBoard.Infrastructure.csproj
-dotnet run --project FlightBoard.Api/FlightBoard.Api.csproj
+cd FlightBoard.Api
+dotnet run
 ```
 
 > By default, the server runs on `https://localhost:7031`
@@ -73,7 +74,7 @@ dotnet run --project FlightBoard.Api/FlightBoard.Api.csproj
 cd Client-Side
 cd flightboard-client
 npm install
-npm run dev
+npm start
 ```
 
 > By default, the frontend runs on `http://localhost:5173`
