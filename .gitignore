@@ -1,107 +1,63 @@
-############################################################
-#  Dotnet / Visual Studio                                  #
-############################################################
-## Build results
-bin/
-obj/
-out/
-# Rider & VS Code local history
-.idea/
-.vscode/
-.vs/
-# User‑specific files
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-# IIS Express
-.vsconfig
-# Publish / dist from dotnet
-publish/
-# EF Core Migrations snapshot files (optional להחסיר אם צריך)
-**/*.Designer.cs
-# Secrets
-secrets.json
-appsettings.*.json
-!appsettings.Development.json   # השאירי גרסה מדוללת לפיתוח
-
-############################################################
-#  Node / React (TypeScript)                               #
-############################################################
-# Dependency directories
+# === GENERAL ===
 node_modules/
-# Build / output
 dist/
 build/
-# TypeScript
-*.tsbuildinfo
-# Testing coverage
-coverage/
-.nyc_output/
-# Lint cache
-.eslintcache
-# vite / next / cra
-*.log
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
-# dotenv files (השאירי example)
 .env
-.env.*.local
-!.env.example
-# Package managers
-.pnpm-store/
-# IDE helpers
-*.iml
-
-############################################################
-#  Cross‑platform tooling                                 #
-############################################################
-# JetBrains Rider / WebStorm
+.env.*
+.vscode/
 .idea/
-# macOS metadata
-.DS_Store
-# Linux
-*~
-# Windows thumbs
-Thumbs.db
-ehthumbs.db
-# GitHub Codespaces / DevContainers
-.devcontainer/
-# Docker artefacts
-docker-compose.override.yml
-**/Dockerfile*.local
-# Logs
-logs/
 *.log
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-############################################################
-#  Test artefacts                                          #
-############################################################
-# xUnit / NUnit / MSTest
-TestResults/
-# Jest / Vitest snapshots
-__snapshots__/
-*.snap
-# Playwright / Cypress
-test-results/
-playwright-report/
-cypress/videos/
-cypress/screenshots/
-
-############################################################
-#  Miscellaneous                                           #
-############################################################
-# Temporary files
-*.tmp
-*.temp
-# Backup files
-*.bak
-*.old
-# Symbol files
-*.pdb
-# SQLite / LiteDB dev databases
+# === BACKEND (.NET Core / C#) ===
+bin/
+obj/
 *.db
 *.sqlite
-*.mdf
-*.ldf
+*.pdb
+*.dll
+*.cache
+*.mdb
+*.pidb
+*.log
+*.vs/
+*.nupkg
+*.snupkg
+*.Publish.xml
+TestResults/
+project.lock.json
+project.fragment.lock.json
+
+# Entity Framework Migrations generated snapshot
+Migrations/*Snapshot.cs
+
+# ASP.NET secrets (user-secrets)
+secrets.json
+
+# === FRONTEND (React / Vite / CRA / Next) ===
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+.next/
+out/
+coverage/
+public/static/
+
+# Tailwind generated files
+*.css.map
+
+# === SQLite Database (optional) ===
+*.db
+*.sqlite
+*.sqlite3
+
+# === MAC & WINDOWS SYSTEM FILES ===
+.DS_Store
+Thumbs.db
+desktop.ini
