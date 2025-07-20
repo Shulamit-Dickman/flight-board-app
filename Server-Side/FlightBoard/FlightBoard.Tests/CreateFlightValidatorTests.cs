@@ -27,7 +27,7 @@ namespace FlightBoard.Tests
         [Fact]
         public async Task FlightNumber_IsRequired()
         {
-            var command = new CreateFlightCommand
+            var command = new CreateFlightDto
             {
                 FlightNumber = "",
                 Gate = "A1",
@@ -45,7 +45,7 @@ namespace FlightBoard.Tests
         [Fact]
         public async Task Destination_IsRequired()
         {
-            var command = new CreateFlightCommand
+            var command = new CreateFlightDto
             {
                 FlightNumber = "AA123",
                 Gate = "A1",
@@ -61,7 +61,7 @@ namespace FlightBoard.Tests
         [Fact]
         public async Task Gate_IsRequired()
         {
-            var command = new CreateFlightCommand
+            var command = new CreateFlightDto
             {
                 FlightNumber = "AA123",
                 Gate = "",
@@ -78,7 +78,7 @@ namespace FlightBoard.Tests
         [Fact]
         public async Task DepartureTime_IsInFuture()
         {
-            var command = new CreateFlightCommand
+            var command = new CreateFlightDto
             {
                 FlightNumber = "AA123",
                 Gate = "A1",
@@ -115,7 +115,7 @@ namespace FlightBoard.Tests
             });
             context.SaveChanges();
 
-            var service = new FlightService(context, null);
+            var service = new FlightService(context, null,null);
 
             var isUnique = await service.IsUniqueFlightNumber("AB234");
             Assert.False(isUnique);
@@ -129,7 +129,7 @@ namespace FlightBoard.Tests
             _flightServiceMock.Setup(s => s.IsUniqueFlightNumber("AB234"))
                 .ReturnsAsync(true);
 
-            var command = new CreateFlightCommand
+            var command = new CreateFlightDto
             {
                 FlightNumber = "AC235",
                 Gate = "A1",

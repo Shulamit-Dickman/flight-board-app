@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightBoard.Application.Commands
 {
-    public class CreateFlightCommand
+    public class CreateFlightDto
     {
         public string FlightNumber { get; set; } = null!;
         public string Destination { get; set; } = null!;

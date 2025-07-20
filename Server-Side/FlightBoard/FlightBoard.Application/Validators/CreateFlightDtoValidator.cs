@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace FlightBoard.Application.Validators
 {
-    public class CreateFlightDtoValidator : AbstractValidator<CreateFlightCommand>
+    public class CreateFlightDtoValidator : AbstractValidator<CreateFlightDto>
     {
         private readonly IFlightService _flightService;
         public CreateFlightDtoValidator(IFlightService flightService)

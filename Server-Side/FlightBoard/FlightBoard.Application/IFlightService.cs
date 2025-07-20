@@ -12,7 +12,7 @@ namespace FlightBoard.Application
     {
         Task<IEnumerable<FlightDto>> GetAllAsync();
         Task<IEnumerable<FlightDto>> GetFilteredAsync(FlightStatus? status , string destination);
-        Task<FlightDto> CreateAsync(CreateFlightCommand cmd);
+        Task<FlightDto> CreateAsync(CreateFlightDto cmd);
         Task DeleteAsync(Guid id);
         Task<bool> IsUniqueFlightNumber(string flightNumber);
     }

@@ -6,6 +6,7 @@ using FlightBoard.Infrastructure.Data;
 using FlightBoard.Infrastructure.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,14 @@ namespace FlightBoard.Application
     {
         private readonly FlightDbContext _context;
         private readonly IHubContext<FlightHub> _hubContext;
-
-        public FlightService(FlightDbContext context, IHubContext<FlightHub> hubContext)
+        private readonly ILogger<FlightService> _logger;
+        public FlightService(FlightDbContext context,
+                            IHubContext<FlightHub> hubContext,
+                            ILogger<FlightService> logger)
         {
             _context = context;
             _hubContext = hubContext;
+            _logger = logger;
         }
         public async Task<IEnumerable<FlightDto>> GetAllAsync()
         {
@@ -48,27 +52,27 @@ namespace FlightBoard.Application
                 FlightStatusCalculator.Calculate(f.DepartureTime).ToString()
             )).Where(f => (f.Status == status?.ToString() || status == null) &&
                          (string.IsNullOrEmpty(destination) || f.Destination.Contains(destination)));
-            
+
         }
 
-        public async Task<FlightDto> CreateAsync(CreateFlightCommand cmd)
+        public async Task<FlightDto> CreateAsync(CreateFlightDto newFlight)
         {
-            if (await _context.Flights.AnyAsync(f => f.FlightNumber == cmd.FlightNumber))
-            {
-                throw new Exception(ErrorMessage.FlightNumberExists.ToString());
-            }
+            _logger.LogInformation("Creating flight {FlightNumber} to {Destination} at {DepartureTime} Through Gate {Gate}",
+            newFlight.FlightNumber, newFlight.Destination, newFlight.DepartureTime,newFlight.Gate);
 
             var flight = new Flight
             {
                 Id = Guid.NewGuid(),
-                FlightNumber = cmd.FlightNumber,
-                Destination = cmd.Destination,
-                DepartureTime = cmd.DepartureTime,
-                Gate = cmd.Gate
+                FlightNumber = newFlight.FlightNumber,
+                Destination = newFlight.Destination,
+                DepartureTime = newFlight.DepartureTime,
+                Gate = newFlight.Gate
             };
             _context.Flights.Add(flight);
             await _context.SaveChangesAsync();
 
+            _logger.LogInformation("Flight {FlightId} created successfully", flight.Id);
+            
             var createdFlightDto = new FlightDto(
                flight.Id,
                flight.FlightNumber,
@@ -83,10 +87,16 @@ namespace FlightBoard.Application
 
         public async Task DeleteAsync(Guid id)
         {
+            _logger.LogInformation("Attempting to delete flight {FlightId}", id);
             var entity = await _context.Flights.FindAsync(id);
-            if (entity == null) return;
+            if (entity == null)
+            {
+                _logger.LogWarning("Flight {FlightId} not found for deletion", id);
+                return;
+            }
             _context.Flights.Remove(entity);
             await _context.SaveChangesAsync();
+            _logger.LogInformation("Flight {FlightId} deleted successfully", id);
             await _hubContext.Clients.All.SendAsync("FlightDeleted", entity.Id);
 
         }

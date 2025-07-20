@@ -35,7 +35,7 @@ namespace FlightBoard.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateFlightCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateFlightDto command)
         {
             if (!await _flightService.IsUniqueFlightNumber(command.FlightNumber))
                 return BadRequest(ErrorMessage.FlightNumberExists.ToString());
