@@ -62,7 +62,7 @@ dotnet restore
 dotnet ef database update --startup-project FlightBoard.Api/FlightBoard.Api.csproj --project FlightBoard.Infrastructure/FlightBoard.Infrastructure.csproj
 ```
 
-1. Open the solution file `FlightBoard.sln` located in the `Server-Side` directory.
+1. Open the solution file `FlightBoard.sln` located in the `Server-Side\FlightBoard` directory.
 2. Set the startup project to `FlightBoard.Api`.
 3. Run the application by pressing `F5` or clicking `Start` in Visual Studio.
 
@@ -78,6 +78,7 @@ Before running the frontend, create a `.env` file inside the `Client-Side\flight
 
 ```env
 REACT_APP_SERVER_API_URL=https://localhost:7031
+```
 
 ```bash
 cd Client-Side
